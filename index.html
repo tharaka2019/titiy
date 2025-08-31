@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Harvest - Traditional Farming Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5016;
+            --accent-green: #4a7c59;
+            --light-green: #8fbc8f;
+            --earth-brown: #8b4513;
+            --cream: #f5f5dc;
+            --gold: #ffd700;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--light-green);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s ease;
+            opacity: 0.7;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0.8rem 0;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-green);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--cream) 0%, #e8f5e8 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px; /* Account for fixed header */
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .hero-text .typed-text {
+            font-size: 1.5rem;
+            color: var(--accent-green);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            min-height: 2rem;
+            border-right: 2px solid var(--accent-green);
+            animation: blink 1s infinite;
+            display: inline-block;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--earth-brown);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-green);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+            cursor: none;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-green);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.3);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInRight 1s ease 0.6s both;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .hero-main-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: heroImageFloat 6s ease-in-out infinite;
+            transition: all 0.5s ease;
+        }
+
+        .spinning-frame {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 440px;
+            height: 440px;
+            border: 3px solid var(--accent-green);
+            border-radius: 25px;
+            animation: spin 15s linear infinite;
+            opacity: 0.3;
+        }
+
+        .spinning-frame::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            border: 2px dashed var(--light-green);
+            border-radius: 30px;
+            animation: spin 20s linear infinite reverse;
+        }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .floating-icon {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: orbitFloat 8s ease-in-out infinite;
+        }
+
+        .floating-icon:nth-child(1) {
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-icon:nth-child(2) {
+            bottom: 10%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+
+        .floating-icon:nth-child(3) {
+            top: 50%;
+            left: -30px;
+            animation-delay: 4s;
+        }
+
+        .floating-icon:nth-child(4) {
+            top: 20%;
+            left: -20px;
+            animation-delay: 6s;
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-item {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+            color: var(--accent-green);
+        }
+
+        .floating-item:nth-child(1) {
+            top: 15%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-item:nth-child(2) {
+            top: 70%;
+            left: 85%;
+            animation-delay: 2s;
+        }
+
+        .floating-item:nth-child(3) {
+            top: 40%;
+            left: 75%;
+            animation-delay: 4s;
+        }
+
+        .floating-item:nth-child(4) {
+            top: 80%;
+            left: 15%;
+            animation-delay: 1s;
+        }
+
+        .floating-item:nth-child(5) {
+            top: 25%;
+            left: 90%;
+            animation-delay: 3s;
+        }
+
+        .floating-item:nth-child(6) {
+            top: 60%;
+            left: 10%;
+            animation-delay: 5s;
+        }
+
+        /* Background Animation Particles */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--light-green);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        .particle:nth-child(1) {
+            width: 8px;
+            height: 8px;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 12px;
+            height: 12px;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(3) {
+            width: 6px;
+            height: 6px;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(4) {
+            width: 10px;
+            height: 10px;
+            left: 40%;
+            animation-delay: 6s;
+        }
+
+        .particle:nth-child(5) {
+            width: 8px;
+            height: 8px;
+            left: 50%;
+            animation-delay: 8s;
+        }
+
+        .particle:nth-child(6) {
+            width: 14px;
+            height: 14px;
+            left: 60%;
+            animation-delay: 10s;
+        }
+
+        .particle:nth-child(7) {
+            width: 7px;
+            height: 7px;
+            left: 70%;
+            animation-delay: 12s;
+        }
+
+        .particle:nth-child(8) {
+            width: 9px;
+            height: 9px;
+            left: 80%;
+            animation-delay: 14s;
+        }
+
+        .particle:nth-child(9) {
+            width: 11px;
+            height: 11px;
+            left: 90%;
+            animation-delay: 16s;
+        }
+
+        .particle:nth-child(10) {
+            width: 5px;
+            height: 5px;
+            left: 95%;
+            animation-delay: 18s;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--cream);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, var(--cream) 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 3rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: none;
+            position: relative;
+            background: var(--light-green);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(45,80,22,0.8) 0%, rgba(74,124,89,0.6) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Social Media Section */
+        .social-media {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--accent-green) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-media::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,10 Q25,0 50,10 T100,10 V20 H0 Z" fill="rgba(255,255,255,0.1)"/></svg>') repeat-x;
+            animation: wave-bg 10s linear infinite;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            cursor: none;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .social-link .icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover .icon {
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        .social-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--cream) 0%, #f8f9fa 100%);
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(74,124,89,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(45,80,22,0.1) 0%, transparent 50%);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-detail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .contact-detail .icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-detail .info h4 {
+            font-size: 1.1rem;
+            color: var(--primary-green);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .contact-detail .info p {
+            color: #666;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-green), var(--accent-green), var(--light-green));
+            animation: shimmer 2s linear infinite;
+        }
+
+        .contact-form h3 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .contact-form .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+            position: relative;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(74,124,89,0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-green));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(45,80,22,0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .form-success {
+            display: none;
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid #c3e6cb;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-green);
+            color: white;
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes heroImageFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes orbitFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg) scale(1.1);
+            }
+            50% {
+                transform: translateY(0px) rotate(180deg) scale(1);
+            }
+            75% {
+                transform: translateY(-10px) rotate(270deg) scale(0.9);
+            }
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                border-color: var(--accent-green);
+            }
+            51%, 100% {
+                border-color: transparent;
+            }
+        }
+
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes wave-bg {
+            0% {
+                background-position-x: 0;
+            }
+            100% {
+                background-position-x: 100px;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200px 0;
+            }
+            100% {
+                background-position: 200px 0;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 100vh;
+                height: auto;
+                padding: 120px 1rem 2rem 1rem; /* More top padding for mobile header */
+                display: block;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+                padding: 2rem 0;
+                max-width: 100%;
+                margin: 0 auto;
+            }
+
+            .hero-text {
+                order: 1;
+                margin-bottom: 2rem;
+            }
+
+            .hero-image {
+                order: 2;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem !important;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+                color: var(--primary-green);
+                font-weight: 700;
+            }
+
+            .hero-text .typed-text {
+                font-size: 1.2rem !important;
+                margin-bottom: 1rem;
+                display: block;
+                text-align: center;
+            }
+
+            .hero-text p {
+                font-size: 1rem !important;
+                margin-bottom: 1.5rem;
+                line-height: 1.5;
+                max-width: 100%;
+                color: var(--earth-brown);
+            }
+
+            .cta-button {
+                display: inline-block;
+                padding: 1rem 2rem;
+                margin-top: 1rem;
+            }
+
+            .hero-image-container {
+                width: 280px;
+                height: 280px;
+                margin: 0 auto;
+            }
+
+            .hero-main-image {
+                width: 100%;
+                height: 100%;
+            }
+
+            .spinning-frame {
+                width: 320px;
+                height: 320px;
+                top: -20px;
+                left: -20px;
+            }
+
+            .floating-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .social-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .social-link {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .floating-elements .floating-item {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            header {
+                padding: 1rem 0;
+                background: rgba(255, 255, 255, 0.98);
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 100px 0.5rem 1rem 0.5rem;
+            }
+
+            .hero-content {
+                padding: 1rem 0;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 1.8rem !important;
+                margin-bottom: 0.8rem;
+            }
+
+            .hero-text .typed-text {
+                font-size: 1rem !important;
+                margin-bottom: 0.8rem;
+            }
+
+            .hero-text p {
+                font-size: 0.9rem !important;
+                margin-bottom: 1.2rem;
+            }
+
+            .hero-image-container {
+                width: 240px;
+                height: 240px;
+            }
+
+            .spinning-frame {
+                width: 280px;
+                height: 280px;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Particles -->
+    <div class="bg-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                🌾 TITIYA
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="floating-elements">
+            <div class="floating-item">🌱</div>
+            <div class="floating-item">🚜</div>
+            <div class="floating-item">🌾</div>
+            <div class="floating-item">🌻</div>
+            <div class="floating-item">🐝</div>
+            <div class="floating-item">🌿</div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Traditional Farming, Modern Values</h1>
+                <div class="typed-text" id="typed-text"></div>
+                <p>Join me on a journey back to authentic, sustainable agriculture. Discover the beauty of traditional farming methods that nurture both the land and our communities.</p>
+                <a href="#about" class="cta-button">Discover My Story</a>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-container">
+                    <div class="spinning-frame"></div>
+                    <img src="hero 1.jpg" alt="Traditional Farming" class="hero-main-image" id="hero-cycling-image">
+                    <div class="floating-icons">
+                        <div class="floating-icon">🌱</div>
+                        <div class="floating-icon">🚜</div>
+                        <div class="floating-icon">🌾</div>
+                        <div class="floating-icon">🐄</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About My Journey</h2>
+                    <p>I'm a passionate farmer dedicated to preserving traditional farming methods while embracing sustainable practices. My family has been working this land for three generations, and I'm proud to continue the legacy.</p>
+                    <p>Through social media, I share the daily realities of farm life, the beauty of seasonal cycles, and the importance of supporting local agriculture. Every post tells a story of hard work, dedication, and love for the land.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">50+</div>
+                            <div>Acres Farmed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">100K+</div>
+                            <div>Social Followers</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">15</div>
+                            <div>Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+                    <img src="about.jpg" 
+                         alt="Farm Owner" 
+                         style="width: 300px; height: 300px; border-radius: 20px; object-fit: cover; box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: transform 0.3s ease;"
+                         onmouseover="this.style.transform='scale(1.05) rotate(2deg)'"
+                         onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Farm Fresh Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">🥕</div>
+                    <h3>Organic Vegetables</h3>
+                    <p>Fresh, seasonal vegetables grown using traditional organic methods</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">🌾</div>
+                    <h3>Heritage Grains</h3>
+                    <p>Ancient grain varieties preserved for their nutritional value and taste</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">🍯</div>
+                    <h3>Raw Honey</h3>
+                    <p>Pure, unprocessed honey from our own beehives</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">🥛</div>
+                    <h3>Farm Dairy</h3>
+                    <p>Fresh milk and artisanal cheeses from grass-fed cows</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title"></h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="gallery 1.jpg" alt="Morning Farm Work">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="galler 2.jpg" alt="Tractor Work">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery 3.jpg" alt="Sunflower Field">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery 4.jpg" alt="Dairy Cows">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery 5.jpg" alt="Corn Field">
+                    <div class="gallery-overlay"></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="gallery 6.jpg" alt="Chickens">
+                    <div class="gallery-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="social-media">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Follow My Journey</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 1rem;">Join thousands of followers discovering the beauty of traditional farming</p>
+            
+            <div class="social-stats">
+                <div class="stat-card">
+                    <h3>125K+</h3>
+                    <p>Facebook Followers</p>
+                </div>
+                <div class="stat-card">
+                    <h3>89K+</h3>
+                    <p>YouTube Subscribers</p>
+                </div>
+                <div class="stat-card">
+                    <h3>45K+</h3>
+                    <p>TikTok Fans</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.instagram.com/farmlife_traditional" target="_blank" class="social-link">
+                    <span class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </span>
+                    <span>Instagram</span>
+                </a>
+                <a href="https://www.youtube.com/@TraditionalFarmLife" target="_blank" class="social-link">
+                    <span class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </span>
+                    <span>YouTube</span>
+                </a>
+                <a href="https://www.tiktok.com/@farmlife_daily" target="_blank" class="social-link">
+                    <span class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                        </svg>
+                    </span>
+                    <span>TikTok</span>
+                </a>
+                <a href="https://www.facebook.com/GreenHarvestFarm" target="_blank" class="social-link">
+                    <span class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </span>
+                    <span>Facebook</span>
+                </a>
+             <!--   <a href="https://twitter.com/FarmLifeDaily" target="_blank" class="social-link">
+                    <span class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </span> -->
+               <!--     <span>Twitter</span>
+                </a>
+                <a href="https://www.pinterest.com/greenharvest" target="_blank" class="social-link">
+                    <span class="icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.097.118.112.22.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.749-1.378 0 0-.599 2.282-.744 2.840-.282 1.084-1.064 2.456-1.549 3.235C9.584 23.815 10.77 24.001 12.017 24.001c6.624 0 11.99-5.367 11.99-12.014C24.007 5.367 18.641.001 12.017.001z"/>
+                        </svg>
+                    </span>
+                    <span>Pinterest</span> -->
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p style="color: #666; margin-bottom: 2rem;">Feel free to reach out for collaborations, farming questions, or just to say hello!</p>
+                    
+                    <div class="contact-detail">
+                        <div class="icon">📧</div>
+                        <div class="info">
+                            <h4>Email Address</h4>
+                            <p>hello@titiya.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <div class="icon">📞</div>
+                        <div class="info">
+                            <h4>Phone Number</h4>
+                            <p>+941234567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-detail">
+                        <div class="icon">📍</div>
+                        <div class="info">
+                            <h4>Farm Address</h4>
+                            <p>Dombagahawela<br>Monaragala<br></p>
+                        </div>
+                    </div>
+                    
+           <!--         <div class="contact-detail">
+                        <div class="icon">⏰</div>
+                        <div class="info">
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 8:00 AM - 6:00 PM<br>Saturday: 9:00 AM - 4:00 PM<br>Sunday: Closed</p>
+                        </div>
+                    </div> -->
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <h3>Send a Message</h3>
+                    <p class="subtitle">Have questions about farming or want to collaborate? I'd love to hear from you!</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a topic...</option>
+                            <option value="collaboration">Collaboration Opportunity</option>
+                            <option value="farming">Farming Questions</option>
+                            <option value="media">Media Inquiry</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell me about your project or question..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                    <div class="form-success" id="formSuccess">
+                        ✅ Thank you! Your message has been sent successfully. I'll get back to you within 24 hours.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h4>🌾 Green Harvest Farm</h4>
+                    <p>Preserving traditional farming for future generations</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <p>About • Products • Gallery • Contact</p>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <p>Follow our daily farm journey on social media</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 2rem;">
+                <p>&copy; 2025 Green Harvest Farm. All rights reserved. Made with ❤️ for sustainable farming.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX - 20 + 'px';
+                follower.style.top = e.clientY - 20 + 'px';
+            }, 100);
+        });
+
+        // Cursor effects on hover
+        const hoverElements = document.querySelectorAll('a, button, .product-card, .gallery-item, .stat');
+        
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                follower.style.transform = 'scale(1.5)';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                follower.style.transform = 'scale(1)';
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card, .stat, .gallery-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Form handling with animations
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.submit-btn');
+            const formSuccess = document.getElementById('formSuccess');
+            const form = e.target;
+            
+            // Animate button
+            submitBtn.style.transform = 'scale(0.95)';
+            submitBtn.textContent = 'Sending...';
+            
+            setTimeout(() => {
+                // Show success message
+                formSuccess.style.display = 'block';
+                formSuccess.style.animation = 'slideInUp 0.5s ease forwards';
+                
+                // Reset button
+                submitBtn.textContent = 'Message Sent!';
+                submitBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+                
+                // Reset form after delay
+                setTimeout(() => {
+                    form.reset();
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.style.background = 'linear-gradient(135deg, var(--primary-green), var(--accent-green))';
+                    submitBtn.style.transform = 'scale(1)';
+                    formSuccess.style.display = 'none';
+                }, 3000);
+                
+            }, 1500);
+        });
+
+        // Add form field animations
+        document.querySelectorAll('.form-group input, .form-group textarea, .form-group select').forEach(field => {
+            field.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            field.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Typing Text Animation
+            const typedTextElement = document.getElementById('typed-text');
+            const textArray = [
+                "Growing with Nature 🌱",
+                "Sustainable Agriculture 🌾",
+                "Farm to Table Fresh 🥕",
+                "Traditional Methods 🚜",
+                "Organic & Natural 🌿"
+            ];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function typeText() {
+                const currentText = textArray[textIndex];
+                
+                if (!isDeleting) {
+                    typedTextElement.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                    
+                    if (charIndex === currentText.length) {
+                        isDeleting = true;
+                        setTimeout(typeText, 2000);
+                        return;
+                    }
+                } else {
+                    typedTextElement.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                    
+                    if (charIndex === 0) {
+                        isDeleting = false;
+                        textIndex = (textIndex + 1) % textArray.length;
+                    }
+                }
+                
+                setTimeout(typeText, isDeleting ? 50 : 100);
+            }
+            
+            typeText();
+
+            // Hero Image Cycling
+            const heroImage = document.getElementById('hero-cycling-image');
+            const heroImages = [
+                'hero 1.jpg',
+                'hero 2.jpg',
+                'hero 3.jpg',
+                'hero 4.jpg',
+                'hero 5.jpg'
+            ];
+            let currentImageIndex = 0;
+
+            function cycleHeroImage() {
+                heroImage.style.opacity = '0';
+                setTimeout(() => {
+                    currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+                    heroImage.src = heroImages[currentImageIndex];
+                    heroImage.style.opacity = '1';
+                }, 500);
+            }
+
+            setInterval(cycleHeroImage, 4000);
+
+            // Create enhanced floating particles
+            function createParticle() {
+                const particles = ['🌱', '🌾', '🍃', '✨', '🌿'];
+                const particle = document.createElement('div');
+                particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+                particle.style.cssText = `
+                    position: fixed;
+                    font-size: ${Math.random() * 15 + 10}px;
+                    pointer-events: none;
+                    z-index: 1000;
+                    opacity: 0.6;
+                    user-select: none;
+                `;
+                
+                particle.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+                particle.style.top = window.innerHeight + 50 + 'px';
+                
+                document.body.appendChild(particle);
+                
+                const duration = 4000 + Math.random() * 3000;
+                const drift = (Math.random() - 0.5) * 200;
+                
+                const animation = particle.animate([
+                    { 
+                        transform: 'translateY(0px) translateX(0px) rotate(0deg)', 
+                        opacity: 0.6 
+                    },
+                    { 
+                        transform: `translateY(-${window.innerHeight + 100}px) translateX(${drift}px) rotate(360deg)`, 
+                        opacity: 0 
+                    }
+                ], {
+                    duration: duration,
+                    easing: 'ease-out'
+                });
+                
+                animation.onfinish = () => particle.remove();
+            }
+
+            // Create particles more frequently
+            setInterval(createParticle, 1500);
+
+            // Add wave animation to some elements
+            const waveElements = document.querySelectorAll('.product-icon');
+            waveElements.forEach((element, index) => {
+                element.style.animation = `wave 3s ease-in-out infinite ${index * 0.5}s`;
+            });
+
+            // Add pulse animation to stats
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach((stat, index) => {
+                stat.style.animation = `pulse 2s ease-in-out infinite ${index * 0.3}s`;
+            });
+
+            // Enhanced background particle creation
+            function createBackgroundParticle() {
+                const bgParticle = document.createElement('div');
+                bgParticle.style.cssText = `
+                    position: fixed;
+                    width: ${Math.random() * 6 + 2}px;
+                    height: ${Math.random() * 6 + 2}px;
+                    background: ${Math.random() > 0.5 ? 'var(--light-green)' : 'var(--accent-green)'};
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 0;
+                    opacity: ${Math.random() * 0.3 + 0.1};
+                `;
+                
+                bgParticle.style.left = Math.random() * window.innerWidth + 'px';
+                bgParticle.style.top = window.innerHeight + 'px';
+                
+                document.body.appendChild(bgParticle);
+                
+                const animation = bgParticle.animate([
+                    { 
+                        transform: 'translateY(0px) translateX(0px)', 
+                        opacity: bgParticle.style.opacity 
+                    },
+                    { 
+                        transform: `translateY(-${window.innerHeight + 200}px) translateX(${(Math.random() - 0.5) * 300}px)`, 
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 8000 + Math.random() * 4000,
+                    easing: 'linear'
+                });
+                
+                animation.onfinish = () => bgParticle.remove();
+            }
+
+            // Create background particles
+            setInterval(createBackgroundParticle, 800);
+
+            // Add mouse move parallax effect
+            document.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+                
+                document.querySelectorAll('.floating-item').forEach((item, index) => {
+                    const speed = (index + 1) * 0.5;
+                    item.style.transform = `translate(${moveX * speed}px, ${moveY * speed}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
